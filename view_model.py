@@ -5,8 +5,8 @@ class ViewModel :
     def __init__(self , db):
         self.db = db
     
-    def add_Artist(self, Artists):
-        self.db.insert()
+    def add_Artist(self, artists):
+        self.db.add_Artist(artists)
 
     def search_Artwork(self, artist_search):
         self.db.search_Artwork(artist_search)

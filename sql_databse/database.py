@@ -3,27 +3,29 @@ from database_abc import ArtistDB
 from model.artist_model import Artists , Artwork
 from .config import db_path
 from utils.validation import ensure_positive_float
-
+from exceptions import artwork_error
 db = db_path
 
 class SQLArtworkDB(ArtistDB):
     def __init__(self):
         with sqlite3.connect(db) as conn:
-            conn.execute('CREATE TABLE IF NOT EXISTS artists ("artist"	TEXT NOT NULL,"artwork"	TEXT')
-            conn.execute('CREATE TABLE "artwork" ( "artist" TEXT, "artwork_name" TEXT, "price"	INTEGER,	"available"	TEXT)')
+            conn.execute('CREATE TABLE IF NOT EXISTS artists (artist TEXT NOT NULL, email TEXT)')
+            conn.execute('CREATE TABLE IF NOT EXISTS "artwork" ( "artist" TEXT, "artwork_name" TEXT, "price"	INTEGER,	"available"	TEXT)')
 
     def add_Artist(self, Artists):
 
         insert_sql = "INSERT INTO artists (artist , email_address) VALUES (?,?)"
-        with sqlite3.connect(db) as conn :
-            c = conn.cursor()
-            c.execute(' SELECT * FROM artists WHERE artist =(?)',(Artists.name))
-            all_rows = c.fetchall()
-            if len(all_rows) == 0:
-                conn.execute(insert_sql ,(Artists.name, Artists.email) ) 
-                print(f" {Artists.name} Added to the database.")
-            else :
-                print ("Already in the database. ")
+        try:
+            with sqlite3.connect(db) as conn :
+                c = conn.cursor()
+                c.execute(' SELECT * FROM artists WHERE artist =(?)',(Artists.name))
+                all_rows = c.fetchall()
+                if len(all_rows) == 0:
+                    conn.execute(insert_sql ,(Artists.name, Artists.email,) ) 
+                    print(f" {Artists.name} Added to the database.")
+                conn.close()
+        except:
+            print ("Already in the database. ")
     def search_Artwork(self, artist_search):
 
         read_sql = "SELECT artist , artwork_name FROM artworks WHERE artist = (?)"
@@ -66,7 +68,7 @@ class SQLArtworkDB(ArtistDB):
             c.execute(' SELECT artwork_name FROM artworks WHERE artist =(?)',(Artwork.artist_,))
             all_rows = c.fetchall()
             if len(all_rows) == 0:
-                print(f" {Artwork.artist_name} Not found added. Please add them first. ")
+                print(f" {Artwork.art} Not found added. Please add them first. ")
             else :
                 conn.execute(insert_sql ,(Artwork.artist_name, Artwork.artwork_name,Artwork.price, Artwork.availablity) ) 
                 print(f" {Artwork.artwork_name} Added to the database.") 
