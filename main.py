@@ -26,7 +26,7 @@ def main():
         '3 : Display Available Artwork By Artist \n'
         '4 : Add New Artwork by Artist \n'
         '5 : Change Availbilty by Artwork \n'
-        '6 : Type Quit to Exit the program \n')
+        '6 : Type 6 to Exit the program \n')
 
         menuChoice = input("Please enter a number. ")
         # Went for a simple Menu layout. If I can get this to run I would like to try and use a GUI. 
@@ -44,7 +44,7 @@ def main():
         if menuChoice == '6' :
             menu = False
         else :
-            print("Please enter a valid option")
+            print("Please enter a menu option")
    
 
 main()

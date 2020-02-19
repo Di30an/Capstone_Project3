@@ -8,7 +8,7 @@ import abc
 # Artwork is an object with artist, artwork_name, 
 class ArtistDB(abc.ABC):
     @abc.abstractmethod
-    def add_Artist(self, Artist):
+    def add_Artist(self, artist, email):
         pass
     @abc.abstractmethod
     def search_Artwork(self, artist_search):

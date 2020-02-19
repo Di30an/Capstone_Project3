@@ -1,3 +1,8 @@
+"""
+Input and validation utilites
+
+"""
+
 def isEmail():
 # Checks the endings of the email to make sure it has propers extension
     extentsions_list = (".net", ".com", ".edu")
@@ -8,9 +13,40 @@ def isEmail():
     else: 
         return email
 
-def isName():
+def isName(person):
 # Mainly checks if a name is present. Difficult to Regex names 
-    name = input("Please enter an Artist Name")
-    while not name :
-        name = input("Please enter an Artist Name")
-    return name
+    while True:
+        try:
+            name = input(f"Please enter an {person} name : ")
+            if name == "":
+                print("Please enter a name : ")
+            else: 
+                return name
+        except ValueError as e:
+            print("Enter a name please : ")
+
+def input_positive_float(question):
+    while True:
+        try:
+            number = float(input(question))
+            if number < 0:
+                print('Enter a positive number')
+            else:
+                return number 
+        except ValueError as e:
+            print('Enter a number.')
+def is_availbilty():
+    while True:
+        
+            status = input('Please enter available or not available : ').upper()
+            if status == "AVAILABLE" :
+                return status
+            if status == "NOT AVAILABLE" :
+                return status
+            else:
+                status = input('Please enter available or not available : ').upper()
+
+def header(text):
+    stars = len(text) * '*'
+    print(f'\n{stars}\n{text}\n{stars}\n')
+        
